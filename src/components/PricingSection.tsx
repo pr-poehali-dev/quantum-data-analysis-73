@@ -1,42 +1,45 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Check } from "lucide-react"
-import { QuoteFormDialog } from "@/components/QuoteFormDialog"
+import { Button } from "@/components/ui/button"
 
 const pricingTiers = [
   {
-    name: "Базовый",
-    price: "99 900",
+    name: "Один человек",
+    price: "63 750",
+    period: "за 1 чел.",
     features: [
-      "До 5 страниц",
-      "Адаптивный дизайн",
-      "Базовая SEO-оптимизация",
-      "Форма обратной связи",
-      "1 месяц поддержки",
+      "Перелёт Ростов → Анталья (Azur Air)",
+      "Прямой рейс без пересадок",
+      "7 ночей в номере Standard Land View",
+      "Ultra All Inclusive",
+      "Трансфер аэропорт–отель–аэропорт",
     ],
     highlighted: false,
   },
   {
-    name: "Про",
-    price: "249 900",
+    name: "Двое (горящий тур)",
+    price: "127 500",
+    period: "за двоих",
     features: [
-      "До 15 страниц",
-      "Премиум-дизайн",
-      "Расширенная SEO-оптимизация",
-      "Интеграция CMS",
-      "Функционал e-commerce",
-      "3 месяца поддержки",
+      "Перелёт Ростов → Анталья (Azur Air)",
+      "Прямой рейс без пересадок",
+      "7 ночей в номере Standard Land View",
+      "Ultra All Inclusive",
+      "Трансфер аэропорт–отель–аэропорт",
+      "✅ Лучшая цена при брони сегодня",
     ],
     highlighted: true,
   },
   {
-    name: "Индивидуальный",
+    name: "Семья / группа",
     price: "По запросу",
+    period: "",
     features: [
-      "Неограниченно страниц",
-      "Кастомный функционал",
-      "API-интеграции",
+      "Индивидуальный расчёт",
+      "Выбор номеров для семьи",
+      "Детская скидка",
       "Персональный менеджер",
-      "6 месяцев поддержки",
+      "Гибкие даты поездки",
     ],
     highlighted: false,
   },
@@ -57,13 +60,14 @@ export function PricingSection() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Прозрачные цены
+            🔥 Горящая цена — бронируй сегодня!
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-balance">
-            Выберите <span className="text-primary">идеальный тариф</span> для вашего проекта
+            Стоимость тура в{" "}
+            <span className="text-primary">Amara Dolce Vita 5★</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            От стартапов до крупного бизнеса — у нас есть подходящее решение
+            Даты: 10.06 – 17.06 (8 дней / 7 ночей) · Питание: Ultra All Inclusive
           </p>
         </div>
 
@@ -78,8 +82,8 @@ export function PricingSection() {
               } transition-all duration-300`}
             >
               {tier.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
-                  Популярный
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-lg whitespace-nowrap">
+                  🔥 Горящий тур
                 </div>
               )}
               <CardHeader className="text-center pb-8">
@@ -90,12 +94,14 @@ export function PricingSection() {
                       <span className="text-3xl">{tier.price}</span>
                     ) : (
                       <>
-                        <span className="text-lg font-normal text-muted-foreground">от </span>
                         {tier.price}
                         <span className="text-lg font-normal text-muted-foreground"> ₽</span>
                       </>
                     )}
                   </span>
+                  {tier.period && (
+                    <div className="text-sm text-muted-foreground mt-1">{tier.period}</div>
+                  )}
                 </div>
               </CardHeader>
               <CardContent>
@@ -107,13 +113,15 @@ export function PricingSection() {
                     </li>
                   ))}
                 </ul>
-                <QuoteFormDialog
-                  packageName={tier.name}
-                  variant={tier.highlighted ? "default" : "outline"}
+                <Button
                   className={`w-full ${tier.highlighted ? "shadow-lg shadow-primary/20" : ""}`}
+                  variant={tier.highlighted ? "default" : "outline"}
+                  asChild
                 >
-                  {tier.price === "По запросу" ? "Связаться с нами" : "Выбрать тариф"}
-                </QuoteFormDialog>
+                  <a href="#contact">
+                    {tier.price === "По запросу" ? "Запросить цену" : "ЗАБРОНИРОВАТЬ"}
+                  </a>
+                </Button>
               </CardContent>
             </Card>
           ))}
@@ -121,8 +129,8 @@ export function PricingSection() {
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
-            Все тарифы включают <span className="text-primary font-semibold">бесплатную настройку хостинга</span> и{" "}
-            <span className="text-primary font-semibold">SSL-сертификат</span>
+            Цена действительна при бронировании <span className="text-primary font-semibold">до конца дня</span> в{" "}
+            <span className="text-primary font-semibold">Турагентстве «Розовый слон»</span>, ул. Еременко, 89Б
           </p>
         </div>
       </div>
